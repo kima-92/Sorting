@@ -18,10 +18,9 @@ def selection_sort( arr ):
     return arr
 
 
-# TO-DO:  implement the Bubble Sort function below
 def bubble_sort( arr ):
 
-    # set didSwap to True
+    # Set didSwap to True
     did_swap = True
 
     # While didSwap == True
@@ -52,6 +51,7 @@ def bubble_sort( arr ):
     return arr
 
 a = [9, 1, 8, 4, 3, 5, 6, 10, 7, 2]
+
 print(f"\nOLD list: {a}")
 new_list = bubble_sort(a)
 print(f"NEW list: {new_list}")
