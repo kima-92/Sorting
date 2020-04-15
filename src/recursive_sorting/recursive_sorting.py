@@ -1,5 +1,5 @@
 """
-Merg Sort   ( Divide & Conquer )
+Merge Sort   ( Divide & Conquer )
 
 # Devide each item in the array into separate lists ( each item in it's own array )
 # Pick two arrays to compare the first item in each list
@@ -18,14 +18,15 @@ Merg Sort   ( Divide & Conquer )
 
 
 
-# TO-DO: complete the helper function below to merge 2 sorted arrays
+# Helper function to merge 2 sorted arrays
 def merge(left_l, right_l):
     # Set index value for the list to the left, and the list to the right
-    i = 0
-    j = 0
+    i = 0   # Current index in left_l
+    j = 0   # Current index in right_l
 
     # set a new list
-    merged_l = []
+    list_length = len(left_l) + len(right_l)
+    merged_l = [0] * list_length
     # Set index for the merged_l, to insert the new values
     x = 0
 
@@ -53,9 +54,21 @@ def merge(left_l, right_l):
 
     # Make sure we add whatever items are left in each array
     while i < len(left_l):
+        merged_l[x] = left_l[i]
+        
+        i += 1
+        x += 1
+
+    while j < len(right_l):
+        merged_l[x] = right_l[j]
+        
+        j += 1
+        x += 1
+
+    return merged_l
         
         
-        """
+    """
     elements = len( arrA ) + len( arrB )
     merged_arr = [0] * elements
     print(f"elements: {elements}")
@@ -94,47 +107,43 @@ def merge(left_l, right_l):
     
     #return new_array
 
-a = [1, 2, 3, 4]
-b = [5, 6, 7, 8, 9]
 
-print(f"\nOriginals\na:\t{a}\nb:\t{b}")
-print(f"\nMerged array {merge(a, b)}")
-
-
-# TO-DO: implement the Merge Sort function below USING RECURSION
+# Implement the Merge Sort function below USING RECURSION
 def merge_sort( arr ):
     # Devide the list into individial lists ( A list of lists? )
+
+    sorted_list = []
     
     # Base case
     if len(arr) > 1: 
 
         # Grab the middle index of that list
-        mid = len(arr) / 2  
+        mid = int(len(arr) / 2)
         # Separate arr into two lists 
         left_l = arr[:mid]
         right_l = arr[mid:]
+        print("Divided a list")
         # For every two lists, use the merge function
         merge_sort(left_l)  # By the time this gets done, it will be a sorted list
         merge_sort(right_l) # By the time this gets done, it will be a sorted list
 
-        # Set index value for the list to the left, and the list to the right
-        i = 0
-        j = 0
-        # Set index for the list itself, to insert the new value
-        x = 0
-
-        # Compare left_l[i] with righ_l[j]
-        # if left_l[0] is smaller than right_l[0]
-        if left_l[i] < right_l[j]:
-            # Set arr[0] as left_l[0]
-            arr[x] = left_l[i]
-        # else
-        else:
-            # Set arr[0] as right_l[0]
-            arr[x] = right_l[j]
+        # Merge the separated lists
+        sorted_list = merge(left_l, right_l)
+        print(f"Merged a list: {sorted_list}")
 
 
-    return arr
+    return sorted_list
+
+# Testing merge_sort
+
+a = [55, 23, 98, 36, 75, 16, 9, 44, 22]
+
+print(f"\nOriginal array:\n\t{a}")
+
+sorted_array = merge_sort(a)
+
+print(f"\nSorted array:\n\t{a}")
+
 
 
 # STRETCH: implement an in-place merge sort algorithm
