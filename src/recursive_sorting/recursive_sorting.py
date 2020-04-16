@@ -1,17 +1,142 @@
-# TO-DO: complete the helpe function below to merge 2 sorted arrays
-def merge( arrA, arrB ):
-    elements = len( arrA ) + len( arrB )
-    merged_arr = [0] * elements
-    # TO-DO
-    
-    return merged_arr
+"""
+Merge Sort   ( Divide & Conquer )
+
+# Devide each item in the array into separate lists ( each item in it's own array )
+# Pick two arrays to compare the first item in each list
+# Which ever is lowest, add it to a new list
+# Repeat:
+    # Compare the two items at the front of each list
+    # Add the smallest to the new list
+# Repeat till the original two lists are empty
+
+# Now grab two more list and repeat that process
+# Keep repeating till you have only one list
+"""
 
 
-# TO-DO: implement the Merge Sort function below USING RECURSION
+
+
+# Helper function to merge 2 sorted arrays
+def merge(left_l, right_l):
+    # Set index value for the list to the left, and the list to the right
+    i = 0   # Current index in left_l
+    j = 0   # Current index in right_l
+
+    # set a new list
+    list_length = len(left_l) + len(right_l)
+    merged_l = [0] * list_length
+    # Set index for the merged_l, to insert the new values
+    x = 0
+
+    # Compare left_l[i] with righ_l[j]
+
+    # While i is less than the length of left_l AND j is less than the length of right_l
+    while i < len(left_l) and j < len(right_l):
+        # if left_l[0] is smaller than right_l[0]
+        if left_l[i] < right_l[j]:
+            # Set merged_l[0] as left_l[0]
+            merged_l[x] = left_l[i]
+
+            # Increment index of both left_l and merged_l
+            i += 1      # So we ignore the previous index from now on
+            x += 1      # So we can add items to next index
+
+        # else
+        else:
+            # Set arr[0] as right_l[0]
+            merged_l[x] = right_l[j]
+
+            # Increment index of both right_l and merged_l
+            j += 1      # So we ignore the previous index from now on
+            x += 1      # So we can add items to next index
+
+    # Make sure we add whatever items are left in each array
+    while i < len(left_l):
+        merged_l[x] = left_l[i]
+        
+        i += 1
+        x += 1
+
+    while j < len(right_l):
+        merged_l[x] = right_l[j]
+        
+        j += 1
+        x += 1
+
+    return merged_l
+
+# Implement the Merge Sort function below USING RECURSION
 def merge_sort( arr ):
-    # TO-DO
+    # Devide the list into individial lists ( A list of lists? )
+    
+    # Base case
+    if len(arr) > 1: 
+
+        # Grab the middle index of that list
+        mid = int(len(arr) / 2)
+        # Separate arr into two lists 
+        left_l = arr[:mid]
+        right_l = arr[mid:]
+        print("Divided a list")
+        # For every two lists, use the merge function
+        merge_sort(left_l)  # By the time this gets done, it will be a sorted list
+        merge_sort(right_l) # By the time this gets done, it will be a sorted list
+        
+        # Set index value for the list to the left, and the list to the right
+        i = 0   # Current index in left_l
+        j = 0   # Current index in right_l
+        
+        # Set index for the merged_l, to insert the new values
+        x = 0
+        
+        # Compare left_l[i] with righ_l[j]
+        # While i is less than the length of left_l AND j is less than the length of right_l
+        while i < len(left_l) and j < len(right_l):
+            
+            # if left_l[0] is smaller than right_l[0]
+            if left_l[i] < right_l[j]:
+                # Set merged_l[0] as left_l[0]
+                arr[x] = left_l[i]
+                
+                # Increment index of both left_l and merged_l
+                i += 1      # So we ignore the previous index from now on
+                x += 1      # So we can add items to next index
+
+            # else
+            else:
+                # Set arr[0] as right_l[0]
+                arr[x] = right_l[j]
+
+                # Increment index of both right_l and merged_l
+                j += 1      # So we ignore the previous index from now on
+                x += 1      # So we can add items to next index
+
+        # Make sure we add whatever items are left in each array
+        while i < len(left_l):
+            arr[x] = left_l[i]
+        
+            i += 1
+            x += 1
+
+        while j < len(right_l):
+            arr[x] = right_l[j]
+        
+            j += 1
+            x += 1
+
 
     return arr
+
+# Testing merge_sort
+
+a = [55, 23, 98, 36, 75, 16, 9, 44, 22]
+
+print(f"\nOriginal array:\n\t{a}")
+
+sorted_array = merge_sort(a)
+
+print(f"\nSorted array:\n\t{a}")
+
 
 
 # STRETCH: implement an in-place merge sort algorithm
